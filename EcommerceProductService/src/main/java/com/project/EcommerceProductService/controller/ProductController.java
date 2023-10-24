@@ -1,13 +1,13 @@
 package com.project.EcommerceProductService.controller;
 
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
+import com.project.EcommerceProductService.dto.ProductRequestDTO;
 import com.project.EcommerceProductService.dto.ProductResponseDTO;
 import com.project.EcommerceProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,11 +15,17 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    @Autowired
+    /* @Autowired // Field Injection
     @Qualifier("fakeStoreProductService") // Tells the Autowired which particular implementation of the interface needs to get injected as an object
-    private ProductService productService;
+    private ProductService productService; */
 
-    @GetMapping("/product")
+    private final ProductService productService; //immutable
+    @Autowired // Constructor Injection: Autowired for constructor injection is optional from Spring 4.3 onwards
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/products")
     public ResponseEntity getAllProducts(){
         /*
         ProductResponseDTO p1 = new ProductResponseDTO();
@@ -45,9 +51,21 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/1")
-    public ResponseEntity getProductFromId(){
-        ProductResponseDTO response = productService.getProductById(1);
+    @GetMapping("/product/{id}") // Passing a Particular ID
+    public ResponseEntity getProductFromId(@PathVariable("id") int id){ // The id in the path variable would be injected
+        ProductResponseDTO response = productService.getProductById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        ProductResponseDTO responseDTO = productService.createProduct(productRequestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity deleteProductById(@PathVariable("id") int id){
+        boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
 }

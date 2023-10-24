@@ -1,6 +1,7 @@
 package com.project.EcommerceProductService.service;
 
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
+import com.project.EcommerceProductService.dto.ProductRequestDTO;
 import com.project.EcommerceProductService.dto.ProductResponseDTO;
 import com.project.EcommerceProductService.model.Product;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
         return null;
     }
 
     @Override
-    public Product deleteProduct(int id) {
-        return null;
+    public boolean deleteProduct(int id) {
+        return false;
     }
 
     @Override
