@@ -3,6 +3,7 @@ package com.project.EcommerceProductService.controller;
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
 import com.project.EcommerceProductService.dto.ProductRequestDTO;
 import com.project.EcommerceProductService.dto.ProductResponseDTO;
+import com.project.EcommerceProductService.exception.ProductNotFoundException;
 import com.project.EcommerceProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,8 +52,8 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/{id}") // Passing a Particular ID
-    public ResponseEntity getProductFromId(@PathVariable("id") int id){ // The id in the path variable would be injected
+    @GetMapping("/products/{id}") // Passing a Particular ID
+    public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException { // The id in the path variable would be injected
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }

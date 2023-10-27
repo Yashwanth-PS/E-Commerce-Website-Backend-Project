@@ -1,0 +1,38 @@
+Controller -> RequestDTO, ResponseDTO
+CreateProductRequestDTO, -> has all attributes except "id"
+ProductResponseDTO -> has all the attributes
+--------------------------------------------------------------------------------
+Client -> RequestDTO, ResponseDTO
+FakeStoreCreateProductRequestDTO -> has all attributes except "id"
+FakeStoreProductResponseDTO -> has all the attributes
+
+
+Youtube
+
+user uploads a video -> VideoIngestionService -> VideoStore
+
+VideoStore -> only to store the videos : platform DB
+
+VideoUploadRequestDTO : controller -> VideoIngestionService
+    name
+    description
+    thumbnail
+    bookmarks
+    videoFile
+    format
+    uploadedAt
+    uploadedBy
+
+VideoStoreCreateVideoRequestDTO : VideoStoreClient -> VideoIngestionService
+    name
+    description
+    thumbnail
+    bookmarks
+    videoFile
+    format
+    uploadedAt
+    uploadedBy
+    tags
+    topics
+    constant for algo
+    List<Resolutions>
