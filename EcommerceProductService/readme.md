@@ -23,3 +23,11 @@
    - deleteProduct(id)
 3. Service Layer Implementation
 4. Controller Advice
+
+26-10-2023
+
+1. Implemented FakeStoreAPIClient Class
+2. Implemented Global Exception Handler
+3. Implemented Mapper
+4. Updated the FakeStoreProductServiceImpl
+5. Did the Fake Store Configuration - Added the URLs in Application.properties
