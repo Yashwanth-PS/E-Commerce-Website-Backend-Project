@@ -14,15 +14,20 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class ProductController {
+public class ProductController { // Controller - Is the connection point for the outside world, 1 Controller per Entity
 
     /* @Autowired // Field Injection
     @Qualifier("fakeStoreProductService") // Tells the Autowired which particular implementation of the interface needs to get injected as an object
     private ProductService productService; */
 
     private final ProductService productService; //immutable
-    @Autowired // Constructor Injection: Autowired for constructor injection is optional from Spring 4.3 onwards
+    /* @Autowired // Constructor Injection: Autowired for constructor injection is optional from Spring 4.3 onwards
     public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+        this.productService = productService;
+    } */
+
+    @Autowired // Constructor Injection: Autowired for constructor injection is optional from Spring 4.3 onwards
+    public ProductController(@Qualifier("productService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -55,6 +60,12 @@ public class ProductController {
     @GetMapping("/products/{id}") // Passing a Particular ID
     public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException { // The id in the path variable would be injected
         ProductResponseDTO response = productService.getProductById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/products/title/{title}") // Passing a Particular Title
+    public ResponseEntity getProductFromTitle(@PathVariable("title") String title) throws ProductNotFoundException { // The title in the path variable would be injected
+        ProductResponseDTO response = productService.findProductByTitle(title);
         return ResponseEntity.ok(response);
     }
 

@@ -3,15 +3,11 @@ package com.project.EcommerceProductService.service;
 import com.project.EcommerceProductService.client.FakeStoreAPIClient;
 import com.project.EcommerceProductService.dto.*;
 import com.project.EcommerceProductService.exception.ProductNotFoundException;
-import com.project.EcommerceProductService.mapper.ProductMapper;
 import com.project.EcommerceProductService.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.project.EcommerceProductService.mapper.ProductMapper.productRequestToFakeStoreProductRequest;
@@ -63,6 +59,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(int id, Product updateProduct) {
+        return null;
+    }
+
+    @Override
+    public ProductResponseDTO findProductByTitle(String title) {
         return null;
     }
 }

@@ -31,3 +31,8 @@
 3. Implemented Mapper
 4. Updated the FakeStoreProductServiceImpl
 5. Did the Fake Store Configuration - Added the URLs in Application.properties
+
+03-11-2023
+
+1. Data Insertion – The Initialization Service runs through the Command Line and Inserts Data in the Table
+2. New Entities - Price
