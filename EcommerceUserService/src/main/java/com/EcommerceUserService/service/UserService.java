@@ -1,5 +1,6 @@
 package com.EcommerceUserService.service;
 
+import com.EcommerceUserService.dto.UserDTO;
 import com.EcommerceUserService.model.Role;
 import com.EcommerceUserService.model.User;
 import com.EcommerceUserService.repository.RoleRepository;
