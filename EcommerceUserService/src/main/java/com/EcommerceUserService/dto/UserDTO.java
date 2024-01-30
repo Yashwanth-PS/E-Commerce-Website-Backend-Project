@@ -18,7 +18,6 @@ public class UserDTO {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(user.getEmail());
         userDTO.setRoles(user.getRoles());
-
         return userDTO;
     }
 }
