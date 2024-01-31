@@ -13,11 +13,14 @@ import java.util.Date;
 @Getter
 @Setter
 public class Session extends BaseModel {
-    private String token;
-    private Date expiringAt;
-    private Date loginAt;
+    private String token; // 30 Characters - 30 Bytes
+    private Date expiringAt; // Double - 8 Bytes
+    private Date loginAt; // Double - 8 Bytes
     @ManyToOne
-    private User user;
+    private User user; // User ID - Double - 8 Bytes
     @Enumerated(EnumType.ORDINAL) // Create a table for Enum
-    private SessionStatus sessionStatus;
+    private SessionStatus sessionStatus; // 10 Characters - 10 Bytes
+    // 70 Bytes Per Session
+    // --> 1 Million Logins --> 70 Mega Bytes
+    // --> 1 Billion Logins --> 70 Giga Bytes
 }
