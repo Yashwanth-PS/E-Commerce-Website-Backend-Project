@@ -20,6 +20,10 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @GetMapping("/test-api")
+    public ResponseEntity<String> testAPI() { // Test API
+        return ResponseEntity.ok("Test API Response");
+    }
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody LoginRequestDTO request) {
         return authService.login(request.getEmail(), request.getPassword());
