@@ -1,4 +1,4 @@
 package com.PaymentService.controller;
 
-public class RazorpayConfig {
+public class PaymentController {
 }
