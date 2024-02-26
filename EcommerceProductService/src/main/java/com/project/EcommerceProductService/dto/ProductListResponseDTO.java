@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class ProductListResponseDTO {
 
-    private List<ProductResponseDTO> products;
+    private List<GenericProductDTO> products;
 
     public ProductListResponseDTO() {
         this.products = new ArrayList<>();
