@@ -1,8 +1,8 @@
 package com.project.EcommerceProductService.controller;
 
+import com.project.EcommerceProductService.dto.GenericProductDTO;
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
 import com.project.EcommerceProductService.dto.ProductRequestDTO;
-import com.project.EcommerceProductService.dto.ProductResponseDTO;
 import com.project.EcommerceProductService.exception.ProductNotFoundException;
 import com.project.EcommerceProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,19 +59,19 @@ public class ProductController { // Controller - Is the connection point for the
 
     @GetMapping("/products/{id}") // Passing a Particular ID
     public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException { // The id in the path variable would be injected
-        ProductResponseDTO response = productService.getProductById(id);
+        GenericProductDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products/title/{title}") // Passing a Particular Title
     public ResponseEntity getProductFromTitle(@PathVariable("title") String title) throws ProductNotFoundException { // The title in the path variable would be injected
-        ProductResponseDTO response = productService.findProductByTitle(title);
+        GenericProductDTO response = productService.findProductByTitle(title);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/products")
     public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO){
-        ProductResponseDTO responseDTO = productService.createProduct(productRequestDTO);
+        GenericProductDTO responseDTO = productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
