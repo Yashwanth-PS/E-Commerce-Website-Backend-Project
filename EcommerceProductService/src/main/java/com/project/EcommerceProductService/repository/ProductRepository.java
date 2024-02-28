@@ -1,6 +1,7 @@
 package com.project.EcommerceProductService.repository;
 
 import com.project.EcommerceProductService.model.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query(value = CustomQueries.FIND_ALL_PRODUCTS, nativeQuery = true)
     Product findAllProducts(String title, UUID id);
+
+    // SELECT * FROM products WHERE LOWER(title) = "iphone" - Offset and Limit
+    List<Product> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 }
