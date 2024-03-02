@@ -1,15 +1,17 @@
 package com.project.EcommerceProductService.service;
 
+import com.project.EcommerceProductService.dto.GenericProductDTO;
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
 import com.project.EcommerceProductService.dto.ProductRequestDTO;
-import com.project.EcommerceProductService.dto.ProductResponseDTO;
 import com.project.EcommerceProductService.mapper.ProductMapper;
 import com.project.EcommerceProductService.model.Product;
 import com.project.EcommerceProductService.repository.ProductRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// @Primary
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
@@ -26,12 +28,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO getProductById(int id) {
+    public GenericProductDTO getProductById(int id) {
         return null;
     }
 
     @Override
-    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+    public GenericProductDTO createProduct(ProductRequestDTO productRequestDTO) {
         return null;
     }
 
@@ -46,11 +48,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDTO findProductByTitle(String title) {
+    public GenericProductDTO findProductByTitle(String title) {
         // fingAll() -> Gives List of all Products
         // findById() -> Gives Product by ProductId
         Product product = productRepository.findByTitle(title);
-        ProductResponseDTO responseDTO = ProductMapper.convertProductToProductResponseDTO(product);
+        GenericProductDTO responseDTO = ProductMapper.convertProductToGenericProductDTO(product);
         return responseDTO;
     }
 }
