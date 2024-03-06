@@ -14,13 +14,19 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController { // Controller - Is the connection point for the outside world, 1 Controller per Entity
 
     /* @Autowired // Field Injection
     @Qualifier("fakeStoreProductService") // Tells the Autowired which particular implementation of the interface needs to get injected as an object
     private ProductService productService; */
 
-    private final ProductService productService; //immutable
+    /* @Autowired // Setter Injection
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    } */
+
+    private final ProductService productService; // Immutable
     /* @Autowired // Constructor Injection: Autowired for constructor injection is optional from Spring 4.3 onwards
     public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
@@ -31,7 +37,7 @@ public class ProductController { // Controller - Is the connection point for the
         this.productService = productService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/all")
     public ResponseEntity getAllProducts(){
         /*
         ProductResponseDTO p1 = new ProductResponseDTO();
