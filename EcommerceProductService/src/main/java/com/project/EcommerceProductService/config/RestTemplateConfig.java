@@ -1,4 +1,4 @@
-package com.project.EcommerceProductService.configuration;
+package com.project.EcommerceProductService.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
