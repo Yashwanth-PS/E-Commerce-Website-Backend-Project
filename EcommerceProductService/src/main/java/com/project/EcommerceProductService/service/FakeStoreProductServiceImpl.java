@@ -16,7 +16,7 @@ import static com.project.EcommerceProductService.mapper.ProductMapper.productRe
 import static com.project.EcommerceProductService.mapper.ProductMapper.fakeStoreProductResponseToProductResponse;
 import static com.project.EcommerceProductService.util.ProductUtils.isNull;
 
-@Primary
+// @Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder; // It will be injected Automatically
