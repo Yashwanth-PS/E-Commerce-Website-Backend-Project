@@ -1,6 +1,7 @@
 package com.project.EcommerceProductService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.EcommerceProductService.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class JWTPayLoadDTO {
+    private String email;
     @JsonProperty("createdAt")
     private long createdAt;
     @JsonProperty("roles")
-    private String[] roles;
+    private List<Role> roles;
     @JsonProperty("expiryAt")
     private long expiryAt;
     @JsonProperty("userId")
