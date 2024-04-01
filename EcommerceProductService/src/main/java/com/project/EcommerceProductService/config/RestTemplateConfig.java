@@ -10,8 +10,8 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfig {
 
     @Bean
-    public RestTemplateBuilder restTemplateBuilder() {
-        return new RestTemplateBuilder();
+    public RestTemplate restTemplateBuilder() {
+        return new RestTemplateBuilder().build(); // To get the object
     }
 
     @Bean // By Default the bean of RestTemplate is created by Spring when we run the application
