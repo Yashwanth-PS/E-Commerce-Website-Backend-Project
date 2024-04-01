@@ -2,6 +2,8 @@ package com.PaymentService.controller;
 
 import com.PaymentService.dto.InitiatePaymentRequestDTO;
 import com.PaymentService.service.PaymentService;
+import com.razorpay.RazorpayException;
+import com.stripe.exception.StripeException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,7 @@ public class PaymentController {
     }
 
     @PostMapping("/")
-    public String initializePayment(@RequestBody InitiatePaymentRequestDTO paymentRequestDTO) throws Exception {
+    public String initializePayment(@RequestBody InitiatePaymentRequestDTO paymentRequestDTO) throws RazorpayException, StripeException {
         return paymentService.initializePayment(paymentRequestDTO.getOrderId(),
                 paymentRequestDTO.getAmount(),
                 paymentRequestDTO.getPhoneNumber());
