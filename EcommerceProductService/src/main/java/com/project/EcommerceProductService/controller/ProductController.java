@@ -1,5 +1,6 @@
 package com.project.EcommerceProductService.controller;
 
+import com.project.EcommerceProductService.dto.ExceptionDTO;
 import com.project.EcommerceProductService.dto.GenericProductDTO;
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
 import com.project.EcommerceProductService.dto.ProductRequestDTO;
@@ -7,6 +8,7 @@ import com.project.EcommerceProductService.exception.ProductNotFoundException;
 import com.project.EcommerceProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +39,8 @@ public class ProductController { // Controller - Is the connection point for the
         this.productService = productService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity getAllProducts(){
+    @GetMapping("/all") // localhost:8080/products/all
+    public ResponseEntity<ProductListResponseDTO> getAllProducts() {
         /*
         ProductResponseDTO p1 = new ProductResponseDTO();
         p1.setId(1);
@@ -63,27 +65,46 @@ public class ProductController { // Controller - Is the connection point for the
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/products/{id}") // Passing a Particular ID
-    public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException { // The id in the path variable would be injected
+    @GetMapping("/{id}") // localhost:8080/products/1 --> Passing a Particular ID
+    // (value = HttpHeaders.AUTHORIZATION, required = false) String authToken
+    public ResponseEntity<GenericProductDTO> getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException { // The id in the path variable would be injected
         GenericProductDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/products/title/{title}") // Passing a Particular Title
-    public ResponseEntity getProductFromTitle(@PathVariable("title") String title) throws ProductNotFoundException { // The title in the path variable would be injected
+    @GetMapping("/title/{title}") // Passing a Particular Title
+    public ResponseEntity<GenericProductDTO> getProductFromTitle(@PathVariable("title") String title) throws ProductNotFoundException { // The title in the path variable would be injected
         GenericProductDTO response = productService.findProductByTitle(title);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/products")
-    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO){
+    @PostMapping("/create")
+    public ResponseEntity<GenericProductDTO> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         GenericProductDTO responseDTO = productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
-    @DeleteMapping("/products/{id}")
-    public ResponseEntity deleteProductById(@PathVariable("id") int id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> deleteProductById(@PathVariable("id") int id) {
         boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
+
+    public void updateProductById() {
+
+    }
+
+    /* @ExceptionHandler(ProductNotFoundException.class)
+    private ResponseEntity<ExceptionDTO> handleProductNotFoundException(ProductNotFoundException productNotFoundException) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setHttpStatus(HttpStatus.NOT_FOUND);
+        exceptionDTO.setMessage(productNotFoundException.getMessage());
+        ResponseEntity responseEntity = new ResponseEntity(exceptionDTO, HttpStatus.NOT_FOUND);
+        return responseEntity;
+    } */
 }
+
+/* 3 ways of Dependency Injection :-
+1) Constructor Injection
+2) Field Injection
+3) Setter Injection */
