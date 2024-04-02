@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class FakeStoreProductResponseDTO implements Serializable {
+public class FakeStoreProductResponseDTO implements Serializable { // DTO -> Data Transfer Objects
     private UUID id;
     private String title;
     private double price;
