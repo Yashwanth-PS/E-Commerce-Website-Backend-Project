@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-public class ErrorResponseDTO {
+public class ExceptionDTO { // ErrorResponseDTO
+    private HttpStatus httpStatus; // we can have custom status code
     private String message;
-    private int messageCode; // we can have custom status code
 }
