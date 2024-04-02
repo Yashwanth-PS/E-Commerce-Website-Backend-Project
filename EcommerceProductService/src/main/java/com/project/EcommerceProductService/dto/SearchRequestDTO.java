@@ -11,7 +11,7 @@ import java.util.List;
 public class SearchRequestDTO {
     private String query; // Title of the product
     private int pageNumber;
-    private int itemsPerPage;
+    private int itemsPerPage; // Page Size
     // private List<String> sortParams; // ['title', 'price', 'rating']
     private List<SortParam> sortParams; // [('title', 'ASC'), ('price', 'DSC), ('rating', 'ASC)]
 }
