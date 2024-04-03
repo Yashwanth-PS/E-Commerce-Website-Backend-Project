@@ -1,6 +1,8 @@
 package com.project.EcommerceProductService.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
@@ -11,6 +13,9 @@ import java.util.List;
 public class Order extends BaseModel{
     private double price;
     @ManyToMany
+    @JoinTable(name = "products_orders", joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> products; // ECOM_ORDER_PRODUCTS
 }
 
