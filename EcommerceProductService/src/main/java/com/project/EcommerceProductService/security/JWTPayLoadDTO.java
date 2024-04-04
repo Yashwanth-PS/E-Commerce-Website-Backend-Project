@@ -1,7 +1,6 @@
-package com.project.EcommerceProductService.dto;
+package com.project.EcommerceProductService.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.EcommerceProductService.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 
