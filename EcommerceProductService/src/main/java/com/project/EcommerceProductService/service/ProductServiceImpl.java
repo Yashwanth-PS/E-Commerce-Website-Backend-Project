@@ -3,11 +3,14 @@ package com.project.EcommerceProductService.service;
 import com.project.EcommerceProductService.dto.GenericProductDTO;
 import com.project.EcommerceProductService.dto.ProductListResponseDTO;
 import com.project.EcommerceProductService.dto.ProductRequestDTO;
+import com.project.EcommerceProductService.dto.UserDTO;
 import com.project.EcommerceProductService.mapper.ProductMapper;
 import com.project.EcommerceProductService.model.Product;
 import com.project.EcommerceProductService.repository.ProductRepository;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -15,9 +18,10 @@ import java.util.List;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
+    private RestTemplate restTemplate;
+    public ProductServiceImpl(ProductRepository productRepository, RestTemplate restTemplate) {
         this.productRepository = productRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -29,7 +33,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public GenericProductDTO getProductById(int id) {
-        return null;
+        GenericProductDTO genericProductDTO = new GenericProductDTO();
+        System.out.println("Request received to fetch product with id: " + id);
+        // RestTemplate restTemplate = new RestTemplate();
+        // ResponseEntity<UserDTO> responseEntity = restTemplate.getForEntity("http://localhost:8080/users/1", UserDTO.class);
+        ResponseEntity<UserDTO> responseEntity = restTemplate.getForEntity("http://userservice/users/1", UserDTO.class);
+        return genericProductDTO;
     }
 
     @Override
