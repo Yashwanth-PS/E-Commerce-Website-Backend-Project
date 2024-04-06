@@ -19,14 +19,14 @@ import static com.project.EcommerceProductService.util.ProductUtils.isNull;
 // @Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductServiceImpl implements ProductService {
-    private RestTemplateBuilder restTemplateBuilder; // It will be injected Automatically
-    private FakeStoreAPIClient fakeStoreAPIClient;
-    private RedisTemplate<String, FakeStoreProductResponseDTO> redisTemplate;
+    // private RestTemplateBuilder restTemplateBuilder; // It will be injected Automatically
+    private final FakeStoreAPIClient fakeStoreAPIClient;
+    private final RedisTemplate<String, FakeStoreProductResponseDTO> redisTemplate;
 
     @Autowired // Optional - For Dependency Injection
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreAPIClient fakeStoreAPIClient,
+    public FakeStoreProductServiceImpl(FakeStoreAPIClient fakeStoreAPIClient,
                                        RedisTemplate<String, FakeStoreProductResponseDTO> redisTemplate) {
-        this.restTemplateBuilder = restTemplateBuilder;
+        // this.restTemplateBuilder = restTemplateBuilder;
         this.fakeStoreAPIClient = fakeStoreAPIClient;
         this.redisTemplate = redisTemplate;
     }
