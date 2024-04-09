@@ -1,5 +1,7 @@
 package com.EcommerceUserService.service;
 
+import com.EcommerceUserService.config.KafkaProducerConfig;
+import com.EcommerceUserService.dto.SendEmailDTO;
 import com.EcommerceUserService.dto.UserDTO;
 import com.EcommerceUserService.exception.InvalidCredentialException;
 import com.EcommerceUserService.exception.InvalidTokenException;
@@ -10,6 +12,8 @@ import com.EcommerceUserService.model.SessionStatus;
 import com.EcommerceUserService.model.User;
 import com.EcommerceUserService.repository.SessionRepository;
 import com.EcommerceUserService.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.MacAlgorithm;
 import org.springframework.http.HttpHeaders;
@@ -29,11 +33,16 @@ public class AuthService {
     private UserRepository userRepository;
     private SessionRepository sessionRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public AuthService(UserRepository userRepository, SessionRepository sessionRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    private KafkaProducerConfig kafkaProducerConfig;
+    private ObjectMapper objectMapper;
+    public AuthService(UserRepository userRepository, SessionRepository sessionRepository,
+                       BCryptPasswordEncoder bCryptPasswordEncoder, KafkaProducerConfig kafkaProducerConfig,
+                       ObjectMapper objectMapper) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.kafkaProducerConfig = kafkaProducerConfig;
+        this.objectMapper = objectMapper;
     }
 
     public ResponseEntity<List<Session>> getAllSession() {
@@ -122,6 +131,18 @@ public class AuthService {
         user.setEmail(email);
         user.setPassword(bCryptPasswordEncoder.encode(password)); // The password would be encoded/encrypted while saving to the DB
         User savedUser = userRepository.save(user);
+        // If a user has signed up, then push an event inside the Kafka Topic
+        try {
+            SendEmailDTO sendEmailDTO = new SendEmailDTO(); // Create the Object
+            sendEmailDTO.setTo(savedUser.getEmail());
+            sendEmailDTO.setSubject("Signup Successful");
+            sendEmailDTO.setBody("Welcome to the Ecommerce App");
+            sendEmailDTO.setFrom("dummymail@gmail.com");
+            kafkaProducerConfig.sendMessage("signup", objectMapper.writeValueAsString(sendEmailDTO)); // Convert and send the Object in JSON Format
+        } catch (JsonProcessingException e) {
+            System.out.println("Something went wrong");
+            e.printStackTrace();
+        }
         return UserEntityDTOMaapper.getUserDTOFromUserEntity(savedUser);
     }
 
