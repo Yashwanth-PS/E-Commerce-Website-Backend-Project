@@ -1,2 +1,3 @@
-package com.EcommerceUserService.security;public class SpringSecurity {
+package com.EcommerceUserService.security;
+public class SpringSecurity {
 }
